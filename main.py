@@ -13,9 +13,12 @@ for sheet in data:
             dates = row[-1].split("\n")
             for dt in dates:
                 date[dt] = row[0]
-# for file in walk(config.DIRECTORY_PATH):
-#     if date[file] != None:
-#         rename(file, f"(date[file])" + file)
 
-# for file in walk(config.DIRECTORY_PATH):
-#     print(file)
+for path, dir, files in walk(config.DIRECTORY_PATH):
+    for file in files:
+        try:
+            filename = file.split(".")[0]
+            if date[filename] != None:
+                rename(path + "\\" +file, path + "\\" + "{}({}).png".format(date[filename], filename))
+        except KeyError:
+            pass
